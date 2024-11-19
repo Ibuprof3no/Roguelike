@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -10,7 +11,9 @@ public class Boardmanager : MonoBehaviour
     {
         public bool passable;
     }
+    public PlayerController playerController;
     private CellData[,] m_BoardData;
+    private Grid m_Grid;
     public int ancho;
     public int alto;
     public Tile[] muro;
@@ -19,8 +22,7 @@ public class Boardmanager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Tilemap = GetComponentInChildren<Tilemap>();
-        FloorGenerate();
+       
     }
 
     // Update is called once per frame
@@ -29,21 +31,31 @@ public class Boardmanager : MonoBehaviour
         
     }
 
-    void FloorGenerate ()
+   public void FloorGenerate ()
     {
+        m_BoardData = new CellData[ancho, alto];
+        m_Tilemap = GetComponentInChildren<Tilemap>();
+       
+        m_Grid = GetComponentInChildren<Grid>();
+        playerController.Spawn(this, new Vector2Int(1, 1));
+
         for (int i = 0; i < ancho; i++)
         {
             for (int j = 0; j < alto; j++)
             {
                 Vector3Int position = new Vector3Int(i, j, 0);
+                m_BoardData[i, j] = new CellData();
+
                 if ( i == 0 || i == ancho -1 || j == 0 || j == alto -1)
                 {
                     m_Tilemap.SetTile(position, muro[Random.Range(0, muro.Length)]);
+                    m_BoardData[i, j].passable = false;
                 }
 
                else
                 {
                     m_Tilemap.SetTile(position, suelos[Random.Range(0, suelos.Length)]);
+                    m_BoardData[i, j].passable = true;
                 }
 
                
@@ -51,7 +63,20 @@ public class Boardmanager : MonoBehaviour
            
             }
         }
-
+   
      
+    }
+    public Vector3 CellToWorld (Vector2Int cellindex)
+    {
+        return m_Grid.GetCellCenterWorld((Vector3Int)cellindex);
+    }
+
+    public CellData GetCellData (Vector2Int cellindex)
+    {
+        if (cellindex.x <0 || cellindex.x >= ancho || cellindex.y <0 || cellindex.y >= alto)
+        {
+            return null;
+        }
+        return m_BoardData[cellindex.x,cellindex.y];
     }
 }
