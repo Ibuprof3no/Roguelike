@@ -10,10 +10,12 @@ public class Boardmanager : MonoBehaviour
     public class CellData
     {
         public bool passable;
+        public GameObject ContainedObject;
     }
     public PlayerController playerController;
     private CellData[,] m_BoardData;
     private Grid m_Grid;
+    public GameObject foodPrefab;
     public int ancho;
     public int alto;
     public Tile[] muro;
@@ -79,4 +81,15 @@ public class Boardmanager : MonoBehaviour
         }
         return m_BoardData[cellindex.x,cellindex.y];
     }
+
+    //función/método que diga cuántos objetos de comida voy a spawnear, que por cada uno vaya buscando el escenario
+    //(dentro de los muros) y que lo spawnee en una casilla aleatoria, si esa casilla está vacía y es pasable
+    public void SpawnFood ()
+    {
+        for (i == 0 || i == ancho - 1 || j == 0 || j == alto - 1)
+        {
+
+        }
+    }
+    //que esta casilla ya no esté vacía
 }

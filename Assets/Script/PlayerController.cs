@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             if (cellData != null && cellData.passable)
             {
                 MoveTo(newCellTarget);
-              
+                GameManager.Instance.turnManager.Tick();
             }
         }
 
