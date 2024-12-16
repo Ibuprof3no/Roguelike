@@ -566,13 +566,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e8ba43817519c4981a10285d1dfa7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WallPrefab: {fileID: 1260170771329679700, guid: 1fd29133085a325418377f4e37f4992e, type: 3}
+  ExitCellPrefab: {fileID: -171193290856929876, guid: d415db46d362fe342a829e0408ab0af3, type: 3}
   playerController: {fileID: 515313144}
-  foodPrefab: {fileID: 0}
   ancho: 8
   alto: 8
   muro:
   - {fileID: 11400000, guid: 8a16b791319721041909e4e8c5af98ed, type: 2}
-  - {fileID: 11400000, guid: 365593f467ac35247ad626ca803648b2, type: 2}
   - {fileID: 11400000, guid: 9a583b3e522b764449215a468d9db9fc, type: 2}
   suelos:
   - {fileID: 11400000, guid: 28c47acc7b13f014f95262a3e1d81f80, type: 2}
@@ -583,6 +583,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f7dba11e0d403cd4a98e47f536ae3765, type: 2}
   - {fileID: 11400000, guid: c9ee28c7255112b46937ec10aec557b0, type: 2}
   - {fileID: 11400000, guid: 78f32c9c00054f344bb6ce510896790d, type: 2}
+  FoodPrefabs:
+  - {fileID: -760129544578731352, guid: 6ebfa973c45f9954cb8633116dfda8f2, type: 3}
 --- !u!1 &1740721220
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1218113457}
   playerController: {fileID: 515313144}
+  m_FoodAmount: 100
   UIDoc: {fileID: 252795466}
 --- !u!1 &1824583255
 GameObject:
