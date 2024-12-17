@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float MoveSpeed = 5f;
     private Vector3 m_MoveTarget;
     private Boardmanager m_Board;
-    private Vector2Int m_CellPosition;
+    public Vector2Int CellPosition;
     private bool m_IsGameOver;
     private Animator m_Animator;
 
@@ -37,16 +37,16 @@ public class PlayerController : MonoBehaviour
    
     public void MoveTo(Vector2Int cell, bool inmediate)//refactoriación del método que sirve para moverse
     {
-        m_CellPosition = cell;
+        CellPosition = cell;
         if(inmediate)
         {
             m_isMoving = false;
-            transform.position = m_Board.CellToWorld(m_CellPosition);
+            transform.position = m_Board.CellToWorld(CellPosition);
         }
         else
         {
             m_isMoving = true;
-            m_MoveTarget = m_Board.CellToWorld(m_CellPosition);
+            m_MoveTarget = m_Board.CellToWorld(CellPosition);
         }
         m_Animator.SetBool("Moving", m_isMoving);
     }
@@ -55,10 +55,10 @@ public class PlayerController : MonoBehaviour
         m_IsGameOver = true;
     }
 
-
+    
     private void Update()
     {
-        Vector2Int newCellTarget = m_CellPosition; //cual es la nueva casilla a la que quieres moverte.
+        Vector2Int newCellTarget = CellPosition; //cual es la nueva casilla a la que quieres moverte.
         bool hasMoved = false; //sirve para saber si te has movido o no
         if (m_IsGameOver)
         {
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
             {
                 m_isMoving = false;
                 m_Animator.SetBool("Moving", false);
-                var cellData = m_Board.GetCellData(m_CellPosition); //var significa variable
+                var cellData = m_Board.GetCellData(CellPosition); //var significa variable
                 if (cellData.ContainedObject != null) cellData.ContainedObject.PlayerEntered();
             }
             return;
@@ -107,8 +107,6 @@ public class PlayerController : MonoBehaviour
             //comprueba si la nueva posición es pasable, y muevela si lo es.
             Boardmanager.CellData cellData = m_Board.GetCellData(newCellTarget);
 
-           
-               
 
                 if (cellData != null && cellData.passable)
                 {
@@ -121,8 +119,9 @@ public class PlayerController : MonoBehaviour
                     else if (cellData.ContainedObject.PlayerWantsToEnter())
                     {
                         MoveTo(newCellTarget, false);
-                    
+                        
                     }
+                   
                 }
 
             
@@ -131,5 +130,5 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+   
 }

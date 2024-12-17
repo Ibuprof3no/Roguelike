@@ -31,7 +31,7 @@ public class Boardmanager : MonoBehaviour
     private Tilemap m_Tilemap;
     public Tile[] suelos; // esto es un array [] y sirve para guardar muchas cosas de un tipo a la vez, por ejemplo, de un tilemap
     public FoodObject[] FoodPrefabs;
-  
+    public EnemyObject EnemyPrefab;
     private List<Vector2Int> m_EmptyCells;
 
 
@@ -91,7 +91,7 @@ public class Boardmanager : MonoBehaviour
         m_EmptyCells.Remove(endCoord);
         GenerateWall();
         GenerateFood();
-
+        GenerateEnemies();
     }
     public Vector3 CellToWorld(Vector2Int cellindex)
     {
@@ -147,6 +147,19 @@ public class Boardmanager : MonoBehaviour
         }
 
 
+    }
+
+    void GenerateEnemies()
+    {
+        int enemiesCount = Random.Range(3, 6);
+        for(int i = 0;i < enemiesCount;i++)
+        {
+            int randomIndex = Random.Range(0, m_EmptyCells.Count);
+            Vector2Int coord = m_EmptyCells[randomIndex];
+            m_EmptyCells.RemoveAt(randomIndex);
+            EnemyObject newEnemy = Instantiate(EnemyPrefab);
+            AddObject(newEnemy, coord);
+        }
     }
     void AddObject(CellObject obj, Vector2Int coord)
     {
